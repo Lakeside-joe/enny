@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}All Meals{% endblock title %}
+{% block header %}{% include 'header.html' %}{% endblock header %}
+{% block specials %}{% include 'specials.html' %}{% endblock specials %}
+{% block content %}
+<section class="mt-5">
+    <div class="container cart">
+      <div class="table-responsive">
+        <h2 class="text-center text-warning">{{profile.first_name}} Shopcart</h2>
+        <table class="table">
+          <thead class="thead bg-dark">
+            <tr>
+              <th scope="col" class="text-white">Action</th>
+              <th scope="col" class="text-white">Product</th>
+              <th scope="col" class="text-white">Price</th>
+              <th scope="col" class="text-white">Quantity</th>
+              <th scope="col" class="text-white">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            {% if cart %}
+                {% for item in cart %}
+                <tr>
+                    <td>
+                        <form action="{% url 'delete' %}" method="POST"> 
+                            {% csrf_token %}
+                            <input type="hidden" name="del_id" value="{{item.id}}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form> 
+                    </td>
+                    <td>
+                      <div class="main">
+                        <div class="d-flex">
+                          <img src="{{item.style.image.url}}" alt="">
+                        </div>
+                        <div class="des">
+                          <p>{{item.c_name}}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <h6>{{item.c_price}}</h6>
+                    </td>
+                    <td>
+                        <form action="{% url 'increase' %}" method="POST">
+                        {% csrf_token %} 
+                            <div class="counter">
+                                <input type="hidden" name="quant_id" value="{{item.id}}">
+                                <input type="number" name="quantity" value="{{item.quantity}}" min="1" max="">
+                                <button type="submit" class="btn btn-warning">Add</button>
+                              </div>
+                        </form>
+                    </td>
+                    <td>
+                      <h5>{{item.amount}}</h5>
+                    </td>
+                  </tr> 
+                {% endfor %} 
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <div class="col-lg-4 offset-lg-4">
+    <div class="checkout">
+      <ul>
+        <li class="Subtotal">Vat
+          <span>₦{{subtotal}}</span>
+        </li>
+        <li class="Subtotal">Subtotal
+          <span>₦{{vat}}</span>
+        </li>
+        <li class="cart-total">Total
+          <span>₦{{total}}</span>
+        </li>
+      </ul>
+      <a href="{% url 'checkout'  %}" class="proceed-btn">Proceed To checkout</a> 
+    </div>
+  </div>
+{% endblock content %}
+        
+{% block footer %}{% include 'footer.html' %}{% endblock footer %}

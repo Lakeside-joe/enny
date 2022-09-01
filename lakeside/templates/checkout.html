@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %}All Meals{% endblock title %}
+{% block header %}{% include 'header.html' %}{% endblock header %}
+{% block specials %}{% include 'specials.html' %}{% endblock specials %}
+{% block content %}
+<!-- cart start -->
+<div class="row">
+    <div class="col-lg-6 col-sm-12">
+          <section class="mt-5">
+            <div class="container cart">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="thead bg-dark">
+                    <tr>
+                      <th scope="col" class="text-white">Product</th>
+                      <th scope="col" class="text-white">Price</th>
+                      <th scope="col" class="text-white">Quantity</th>
+                      <th scope="col" class="text-white">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if cart %}
+                        {% for item in cart %}
+                        <tr>
+                            <td>
+                              <div class="main">
+                                <div class="d-flex">
+                                  <img src="{{item.style.image.url}}" alt="">
+                                </div>
+                                <div class="des">
+                                  <p>{{item.c_name}}</p>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <h6>₦{{item.c_price}}</h6>
+                            </td>
+                            <td>
+                              <div class="counter">
+                               <p>{{item.quantity}}</p>
+                              </div>
+                            </td>
+                            <td>
+                              <h5>₦{{item.amount}}</h5>
+                            </td>
+                          </tr>
+                        {% endfor %} 
+                    {% endif %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          
+              <div class="col-lg-4 offset-lg-4">
+                <div class="checkout">
+                  <ul>
+                    <li class="Subtotal">Subtotal
+                      <span>₦{{subtotal}}</span>
+                    </li>
+                    <li class="cart-total">Total
+                      <span>₦{{total}}</span>
+                    </li>
+                  </ul>
+              </div>
+            </div>
+      </section>
+   </div>
+
+      <div class="col-lg-6 col-sm-12 check">
+        <div class="container wrapper">
+          <h2>Checkout Form</h2>
+          <form class="payment" action="" method="post">
+            <h4>Adress info</h4>
+            <div class="input_group">
+              <div class="input_box">
+                <input type="text" value="          {{profile.first_name}}" placeholder="...,,First Name" required class="name">
+                <i class="fa fa-user icon"></i>
+              </div>
+              <div class="input_box">
+                <input type="text" value="        {{profile.last_name}}" placeholder=".....Surname Name" required class="name">
+                <i class="fa fa-user icon"></i>
+              </div>
+            </div>
+            <div class="input_group">
+              <div class="input_box">
+                <input type="email" value="                     {{profile.email}}" placeholder=".....Email Address" required class="name">
+                <i class="fa-solid fa-envelope icon"></i>
+              </div>
+            </div>
+            <div class="input_group">
+              <div class="input_box">
+                <input value="          {{profile.address}}" type="Address" placeholder="......Address" class="name" required>
+                <i class="fa fa-map-marker icon" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div class="input_group">
+              <div class="input_box">
+                <input type="          {{profile.state}}" placeholder=".....City" required class="name">
+                <i class="fa fa-institution icon"></i>
+              </div>
+            </div>
+            <!-- DOB info -->
+
+            <div class="input_group">
+              <div class="input_box">
+                <h4>Gender</h4>
+                <input type="radio" name="gender" required id="b1" class="radio" checked>
+                <label for="b1">Male</label>
+                <input type="radio" name="gender" required id="b2" class="radio" checked>
+                <label for="b2">female</label>
+              </div>
+            </div>
+            <div class="input_group">
+              <div class="input_box">
+                <h4>Payment Option</h4>
+                <input type="radio" name="pay" class="radio" id="bc1" checked>
+                <label for="bc1"><span>
+                  <i class="fa-brands fa-cc-visa"></i>Credit Card</span></label>
+                <input type="radio" name="pay" class="radio" id="bc2" checked>
+                <label for="bc2"><span>
+                  <i class="fa-brands fa-cc-paypal"></i></i>Paypal</span></label>
+              </div>
+            </div>
+
+            <div class="input_group">
+              <div class="input_box">
+                <button type="submit">Pay</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+</div>
+{% endblock content %}
+        
+{% block footer %}{% include 'footer.html' %}{% endblock footer %}

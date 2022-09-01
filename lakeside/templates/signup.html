@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+    
+{% block content %}
+<div class="chicken">
+    <div class="turkey">
+        <form class="form1" action="{% url 'signup' %}" method="post"> 
+        {% csrf_token %}
+            <h1>Register</h1>
+        <div class="form-div">
+            <label for="fname">Username</label>
+            <input type="text" class="fname" name="username" placeholder="Username" id="fname" itemid="fname" >
+        </div>
+        <div class="form-div">
+            <label for="fname">First Name</label>
+            <input type="text" class="fname" name="first_name" placeholder="First Name" id="fname" itemid="fname" >
+        </div>
+        <div class="form-div">
+            <label for="lname">Last Name</label>
+            <input type="text" class="lname" name="last_name" placeholder="Last Name" id="lname" itemid="lname" >
+        </div>
+        <div class="form-div">
+            <label for="email">Email</label>
+            <input type="text" class="email" name="email" placeholder="xxxx@yyyy.com" id="email" itemid="email" >
+        </div>
+        <div class="form-div">
+            <label for="Phone">Phone</label>
+            <input type="text" class="phone" name="phone" placeholder="080xxxxxxxx" id="phone" itemid="phone" >
+        </div>
+        <div class="form-div">
+            <label for="password">Password</label>
+            <input type="password" class="inputag" name="password1" placeholder="Password" id="password" itemid="password" >
+            <div class="hide">
+            </div>
+        </div>
+        <div class="form-div">
+            <label for="password">Confirm Password</label>
+            <input type="password" class="input1" name="password2" placeholder="Confirm password" id="password" itemid="password" >
+            <div class="hideme">
+            </div>
+        </div>
+        <div class="submit">
+            <input type="submit" value="Register">
+        </div>
+        <div class="newhere1">
+            <h5>Already have an account?</h5> 
+            <a href="{% url 'signin' %}">sign in</a> 
+        </div>
+        </form>
+    </div>
+</div> 
+{% endblock content %}
+{% block footer %}{% include 'footer.html' %}{% endblock footer %}
+    
